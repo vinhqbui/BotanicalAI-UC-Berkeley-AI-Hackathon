@@ -1,0 +1,130 @@
+/* Styles for the chat container */
+#chat2 .form-control {
+  border-color: transparent;
+  }
+  
+  #chat2 .form-control:focus {
+  border-color: transparent;
+  box-shadow: inset 0px 0px 0px 1px transparent;
+  }
+  
+  .divider:after,
+  .divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+  }
+
+  
+
+.middle-class {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 50px;
+  font-family: "Lato", sans-serif;
+  color:#ffffff
+}
+
+#middle {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#chat-container {
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styles for the chat log */
+#chat-log {
+  height: 600px;
+  overflow: hidden; 
+  /* width: 600px;
+  overflow-y: scroll; */
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#chat-log:hover{
+  overflow-y: scroll;
+}
+
+/* Styles for chat messages */
+.chat-message {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styles for the user chat */
+.user-message {
+  color: #000000;
+  background-color: #e1f5fe;
+  text-align: right;
+}
+
+/* Styles for the bot chat */
+.bot-message {
+  color: #0004ff;
+  background-color: #f5f5f5;
+  text-align: left;
+}
+
+
+/* Chat containers */
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.user{
+  text-align: right;
+}
+
+/* Clear floats */
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Style images */
+.container img {
+  float: left;
+  max-width: 45px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Style the right image */
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+body {
+  background-color: #455233;
+}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>List of all organizations</h1>
+    <div class="row">
+        {% for org in organizations %}
+        <div class="col">
+            <div class="p-3 border">
+                {{org.name}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

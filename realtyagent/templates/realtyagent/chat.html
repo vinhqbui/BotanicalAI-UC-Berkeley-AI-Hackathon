@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/chat-styles.css' %}">
+
+{% block content %}
+
+<div class="overflow-x-hidden overflow-y-auto " styles="background-position: 50% 50%;" id="chat-log">
+</div>
+
+<div class="d-flex flex-row justify-content-start mb-4" id="robot-think" style="visibility: hidden ;"> 
+    <img src= {% static "images/robot.svg" %} style="width: 50px; height: 50px; max-width:650px;"> 
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden mx-5">Loading...</span>
+    </div>
+</div>
+
+
+<br>
+<br> 
+<form method="post" action="{% url 'chat' %}" id="chat-form"> {% csrf_token %}
+    <div class="input-group">
+        <textarea class="form-control" placeholder="Prompt" id="text-input" name="text-input"></textarea>
+        <button id="send-btn" style="background-color: #ffffff">
+            <img src= {% static "images/paper-plane-solid.svg" %} style="width: 15px; height: 15px;">
+        </button>
+    </div>
+</form>
+
+<script>
+    function sendMessage() {
+        event.preventDefault();
+        
+        message = document.getElementById('text-input').value
+        chat_log = document.getElementById('chat-log')
+        chat_form = document.getElementById('chat-form')
+        document.getElementById('robot-think').style.visibility='visible'
+
+        chat_log.innerHTML += '<div class="d-flex flex-row justify-content-start mb-4">\
+                    <div style="padding-top: 10px; width: 50px; height: 50px;">You: </div>\
+                    <div class="p-3 ms-3" style="max-width:750px; border-radius: 15px; background-color: #87CEEB; text-align: left;">\
+                    <p class="small mb-0">' + message + '</p>\
+                    </div>\
+                </div>'
+
+        document.getElementById("text-input").disabled = true;
+        document.getElementById("send-btn").disabled = true;
+        document.getElementById('text-input').value = '';
+
+        formdata = new FormData();
+        formdata.append('message', message);
+        formdata.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        fetch('{% url "chat" %}', {
+            method: 'POST',
+            body: formdata
+        })
+        .then(response => response.json())
+        .then(data => {
+            chat_log.innerHTML += '<div class="d-flex flex-row justify-content-start mb-4"> \
+                <img src= {% static "images/robot.svg" %} style="width: 50px; height: 50px; max-width:650px;"> \
+                <div class="p-3 ms-3" style="max-width:750px; border-radius: 15px; background-color: #1E90FF; text-align: left;"> \
+                <p class="small mb-0" style="color: #F8F8FF">' + data.content + '</p> \
+                </div>\
+            </div>';
+            document.getElementById("text-input").disabled = false;
+            document.getElementById("send-btn").disabled = false;
+            document.getElementById('robot-think').style.visibility ='hidden'
+        })
+        
+        
+    }
+
+    // Event listener for Send button
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+    // Event listener for Enter key press
+    document.getElementById("text-input").addEventListener("keydown", function (event) {
+        if (event.keyCode === 13) {
+            sendMessage();
+        }
+    });
+</script>
+
+{% endblock %}
